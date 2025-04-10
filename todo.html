@@ -23,59 +23,46 @@
   >
     <section class="card rounded-4 p-3 shadow-lg w-50 py-4">
       <div class="d-flex mb-5">
-        <input class="form-control flex-grow me-3" type="text" />
-        <button class="btn btn-primary flex-grow-0 px-4">Add</button>
+        <input id="text" class="form-control flex-grow me-3" type="text" />
+        <button onclick="addTodo()" class="btn btn-primary flex-grow-0 px-4">
+          Add
+        </button>
       </div>
-      <section class="bg-info-subtle px-2 py-1 rounded-3 mt-2">
-        <div class="d-flex align-items-center">
-          <p class="mb-0 flex-grow-1 fw-semibold">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          </p>
-          <button class="btn btn-danger">
-            <i class="fa-solid fa-trash fas-2x"></i>
-          </button>
-        </div>
-      </section>
-      <section class="bg-info-subtle px-2 py-1 rounded-3 mt-2">
-        <div class="d-flex align-items-center">
-          <p class="mb-0 flex-grow-1 fw-semibold">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          </p>
-          <button class="btn btn-danger">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-        </div>
-      </section>
-      <section class="bg-info-subtle px-2 py-1 rounded-3 mt-2">
-        <div class="d-flex align-items-center">
-          <p class="mb-0 flex-grow-1 fw-semibold">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          </p>
-          <button class="btn btn-danger">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-        </div>
-      </section>
-      <section class="bg-info-subtle px-2 py-1 rounded-3 mt-2">
-        <div class="d-flex align-items-center">
-          <p class="mb-0 flex-grow-1 fw-semibold">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          </p>
-          <button class="btn btn-danger">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-        </div>
-      </section>
-      <section class="bg-info-subtle px-2 py-1 rounded-3 mt-2">
-        <div class="d-flex align-items-center">
-          <p class="mb-0 flex-grow-1 fw-semibold">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-          </p>
-          <button class="btn btn-danger">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-        </div>
-      </section>
+      <div id="content"></div>
     </section>
   </body>
+  <script>
+    let todoList = [];
+    function addTodo() {
+      const text = document.getElementById("text");
+      todoList.push(text.value);
+      updateContent();
+    }
+
+    function removeTodo(index) {
+      todoList.splice(index, 1);
+
+      updateContent();
+    }
+
+    function updateContent() {
+      const content = document.getElementById("content");
+      let html = "";
+      for (let index = 0; index < todoList.length; index++) {
+        const element = todoList[index];
+        html += `<section class="bg-info-subtle px-2 py-1 rounded-3 mt-2">
+                <div class="d-flex align-items-center">
+                  <p class="mb-0 flex-grow-1 fw-semibold">
+                    ${element}
+                  </p>
+                  <button onclick="removeTodo(${index})" class="btn btn-danger">
+                    <i class="fa-solid fa-trash fas-2x"></i>
+                  </button>
+                </div>
+              </section>`;
+      }
+
+      content.innerHTML = html;
+    }
+  </script>
 </html>
